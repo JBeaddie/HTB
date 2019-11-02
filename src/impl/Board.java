@@ -16,6 +16,7 @@ import Actions.Action;
 public class Board {
     // Attributes
     private int BOARD_SIZE;
+    private int amountOfWater = 0;
     private CellButton[][] cellButtons;
 
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
@@ -23,7 +24,8 @@ public class Board {
 
     private final int DEFAULT_NUM_PREY = 15;
     private final int DEFAULT_NUM_PRED = 3;
-    private final int DEFUALT_WATER_AMOUNT = 30;
+    private final double WATER_DENSITY = 0.2;
+    private final int DEFUALT_WATER_AMOUNT = 60;
 
     private Random random = new Random(1234);
 
@@ -46,13 +48,15 @@ public class Board {
             }
         }
 
-        initWater();
         linkCells();
+        do {
+            initWater();
+        }while (amountOfWater < DEFUALT_WATER_AMOUNT);
         addInitialAnimals();
     }
 
     // Methods
-    public void initWater(){
+    private void initWater(){
         // Pick A random Point on the map
         int x = -1, y = -1;
 
@@ -67,10 +71,33 @@ public class Board {
             }
         }while(x == -1);
 
+        // Add water to this position
         cellButtons[x][y].getCell().setAnimal(new Water());
+        amountOfWater++;
+
+        // For each neighbor of this add water
+        for(Cell cell : cellButtons[x][y].getCell().getNeighbours()){
+            addWater(cell.getXcoord(), cell.getYcoord(), 1);
+        }
     }
 
-    public void addInitialAnimals() {
+    private void addWater(int x, int y, int layer){
+        // See if water the space is empty
+        if(cellButtons[x][y].getCell().getAnimal() == null && random.nextDouble() >= (1d - (WATER_DENSITY / layer))){
+            // Add water
+            cellButtons[x][y].getCell().setAnimal(new Water());
+            amountOfWater++;
+
+            // Now go lower for each neighbor of this cell
+            for(Cell cell : cellButtons[x][y].getCell().getNeighbours()){
+                addWater(cell.getXcoord(), cell.getYcoord(), layer++);
+            }
+        }
+    }
+
+
+
+    private void addInitialAnimals() {
         for (Pair p : getRandomCoords(true)) {
             cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
         }
@@ -80,7 +107,7 @@ public class Board {
         }
     }
 
-    public void update() {
+    private void update() {
         // Loop through each cell in the board
         for (int x = 0; x < BOARD_SIZE; x++) {
             for (int y = 0; y < BOARD_SIZE; y++) {
@@ -179,7 +206,9 @@ public class Board {
     public void reset() {
         for (CellButton[] cellButtonRow: cellButtons) {
             for (CellButton cellButton: cellButtonRow) {
-                cellButton.getCell().setAnimal(null);
+                if(!(cellButton.getCell().getAnimal() instanceof Water)) {
+                    cellButton.getCell().setAnimal(null);
+                }
                 cellButton.display();
             }
         }
