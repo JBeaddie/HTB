@@ -1,4 +1,4 @@
-package Animal;
+/*package Animal;
 
 import java.awt.*;
 
@@ -24,3 +24,4 @@ public class Predator extends Animal {
         return COLOR;
     }
 }
+*/
