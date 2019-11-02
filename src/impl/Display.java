@@ -34,7 +34,7 @@ public class Display extends JFrame implements ActionListener {
         greyPanel.setBackground(PANEL_BACKGROUND_COLOUR);
         greyPanel.setOpaque(true);
 
-        panel.setBounds(25, 25, 975, 800);
+        panel.setBounds(25, 25, 925, 1000);
 
 
         layeredPane.add(greyPanel, 1, 0);
