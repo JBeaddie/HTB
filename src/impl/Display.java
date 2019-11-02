@@ -13,10 +13,10 @@ public class Display extends JFrame implements ActionListener {
     private JButton stopButton = new JButton("Stop");
     private JButton resetButton = new JButton("Reset");
     private JButton preyButton = new JButton("Prey");
-    private final Color PANEL_BACKGROUND_COLOUR = Color.GRAY;
-    private final Color DEFAULT_COLOUR = Color.DARK_GRAY;
+    private final Color PANEL_BACKGROUND_COLOUR = new Color(156, 112, 75);
+    private final Color DEFAULT_COLOUR = new Color(156, 112, 75);
 
-    private JPanel panel = new JPanelWithBackground("terrain.jpg");
+    private JPanel panel = new JPanelWithBackground("mars-terrain.jpg");
     private JPanel greyPanel = new JPanel();
     private JLayeredPane layeredPane = new JLayeredPaneWithBackground("stars-3.jpg");
 
