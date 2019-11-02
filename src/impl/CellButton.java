@@ -28,6 +28,10 @@ public class CellButton implements ActionListener {
         return button;
     }
 
+    public Cell getCell() {
+        return cell;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
