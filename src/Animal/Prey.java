@@ -5,7 +5,6 @@ import Actions.Die;
 import Actions.Mate;
 import Actions.Move;
 import impl.Cell;
-import impl.CellButton;
 import impl.Pair;
 
 import java.awt.*;

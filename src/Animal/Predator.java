@@ -1,6 +1,11 @@
-/*package Animal;
+package Animal;
+
+import Actions.Action;
+import impl.Cell;
+import impl.Pair;
 
 import java.awt.*;
+import java.util.List;
 
 public class Predator extends Animal {
     // Attributes
@@ -20,8 +25,17 @@ public class Predator extends Animal {
     }
 
     @Override
+    public Action update(Cell currentCell) {
+        return null;
+    }
+
+    @Override
+    public Pair nextPosition(List<Cell> neighbours) {
+        return null;
+    }
+
+    @Override
     public Color getColor() {
         return COLOR;
     }
 }
-*/
