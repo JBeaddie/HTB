@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Cell{
     // Attributes
-    private final Color BASE_COLOR = Color.LIGHT_GRAY;
+    private final Color BASE_COLOR = new Color(82, 62, 53);
     private int[][] touchingPoints = new int[][]{{1,0},{-1,0},{0,1},{0,-1},{1,-1},{1,1},{-1,-1},{-1,1}};
     private List<Cell> neighbours = new ArrayList<>();
 

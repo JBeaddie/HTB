@@ -105,7 +105,7 @@ public class Board {
     public void startRepeatedUpdates() {
         if (isStopped) {
             executorService = Executors.newSingleThreadScheduledExecutor();
-            executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
+            executorService.scheduleAtFixedRate(this::update, 0, 500, TimeUnit.MILLISECONDS);
             isStopped = false;
         }
     }
