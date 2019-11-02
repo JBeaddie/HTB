@@ -117,6 +117,18 @@ public class Board {
     }
 
     private void update() {
+
+        if (naturalDisasters) {
+            Random rnd = new Random();
+            int chance = rnd.nextInt(DISASTER_CHANCE + 1);
+            if (DISASTER_LOTTERY_NUM == chance) {
+                System.out.println("DISASTER OCCURRED");
+                currentDisaster.occur(cellButtons);
+            }
+        }
+
+
+
         // Loop through each cell in the board
         for (int x = 0; x < BOARD_SIZE; x++) {
             for (int y = 0; y < BOARD_SIZE; y++) {
