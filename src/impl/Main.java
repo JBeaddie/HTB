@@ -10,9 +10,9 @@ public class Main {
 
     public static void resetFactors(){
         PRED_MATING_FACTOR = 0.2;
-        PRED_HUNGER_FACTOR = 0.05;
-        PREY_MATING_FACTOR = 0.05;
-        PREY_HUNGER_FACTOR = 0.01;
+        PRED_HUNGER_FACTOR = 0.01;
+        PREY_MATING_FACTOR = 0.08;
+        PREY_HUNGER_FACTOR = 0.1;
     }
 
     public static void main(String[] args) {
