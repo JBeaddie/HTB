@@ -1,6 +1,7 @@
 package Animal;
 
 import impl.Cell;
+import impl.CellButton;
 import impl.Pair;
 
 import java.awt.*;
@@ -31,9 +32,11 @@ public class Prey extends Animal {
 	@Override
 	public void update(Cell currentCell) {
 		if(!isUpdated) {
-			//get neghbours
+			//get neighbours
 			// get random move
+			Pair nextMove;
 			// move to next position
+			return nextMove;
 			// set currentpos to null
 		}
 	}
