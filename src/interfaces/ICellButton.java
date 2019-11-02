@@ -1,4 +1,4 @@
 package interfaces;
 
-public class ICellButton {
+public interface ICellButton {
 }
