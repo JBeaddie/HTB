@@ -12,7 +12,8 @@ public class Display extends JFrame implements ActionListener {
     private JButton startButton = new JButton("Start");
     private JButton stopButton = new JButton("Stop");
     private JButton preyButton = new JButton("Prey");
-    private final Color PANEL_BACKGROUND_COLOUR = Color.PINK;
+    private final Color PANEL_BACKGROUND_COLOUR = Color.GRAY;
+    private final Color DEFAULT_COLOUR = Color.DARK_GRAY;
 
     private JPanel panel = new JPanel();
 
@@ -20,11 +21,11 @@ public class Display extends JFrame implements ActionListener {
         setTitle("Species survival of the fittest");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setSize(500, 500);
+        setSize(700, 500);
         setLayout(null);
         setVisible(true);
 
-        panel.setBounds(50, 50, 400, 400);
+        panel.setBounds(50, 50, 600, 400);
         panel.setBackground(PANEL_BACKGROUND_COLOUR);
         panel.setOpaque(true);
         add(panel);
@@ -40,8 +41,24 @@ public class Display extends JFrame implements ActionListener {
                 panel.add(cell.getButton());
             }
         }
+
+        addButton(startButton, 445, 100);
+        addButton(stopButton, 445, 200);
+
+
         repaint();
     }
+
+    public void addButton(JButton button, int x, int y) {
+        button.setBounds(x, y, 100, 50);
+        button.setBackground(DEFAULT_COLOUR);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+        button.addActionListener(this);
+        panel.add(button);
+    }
+
 
 
     @Override
