@@ -21,14 +21,14 @@ public class Prey extends Animal {
 	// Constructor
 	public Prey(boolean isUpdated){
 		// Hunger levels
-		this.hungerThreshold = Main.PREY_HUNGER_THRESHOLD;
-		this.hungerFactor = 0.00001;
+		this.hungerThreshold = 0.2;
+		this.hungerFactor = Main.PREY_HUNGER_FACTOR;
 		this.hungerLevel = 0;
 
 		// Mating levels
-		this.matingThreshold = Main.PREY_MATING_THRESHOLD;
+		this.matingThreshold = 0.7;
 		this.matingLevel = 0;
-		this.matingFactor = 0.01;
+		this.matingFactor = Main.PREY_MATING_FACTOR;
 		setUpdated(isUpdated);
 	}
 

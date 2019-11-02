@@ -21,8 +21,8 @@ public class Board {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isStopped = true;
 
-    private final int DEFAULT_NUM_PREY = 10;
-    private final int DEFAULT_NUM_PRED = 2;
+    private final int DEFAULT_NUM_PREY = 15;
+    private final int DEFAULT_NUM_PRED = 3;
 
     // Constructor
     public Board(int boardSize) {
@@ -105,7 +105,7 @@ public class Board {
     public void startRepeatedUpdates() {
         if (isStopped) {
             executorService = Executors.newSingleThreadScheduledExecutor();
-            executorService.scheduleAtFixedRate(this::update, 0, 1, TimeUnit.MILLISECONDS);
+            executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
             isStopped = false;
         }
     }
