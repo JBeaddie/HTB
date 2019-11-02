@@ -9,13 +9,13 @@ public class CellButton implements ActionListener {
     // Attributes
     private Cell cell;
     private JButton button = new JButton();
-    private final Color DEFAULT_COLOUR = Color.PINK;
+    private final Color DEFAULT_COLOUR = new Color(82, 62, 53);
 
     // Constructor
     public CellButton(int xcoord, int ycoord, int boardSize) {
 
         cell = new Cell(xcoord, ycoord);
-        button.setBounds(10 + (xcoord * 380) / boardSize, 10 + (ycoord * 380) / boardSize, 325 / boardSize, 325 / boardSize);
+        button.setBounds(10 + (xcoord * 790) / boardSize, 10 + (ycoord * 790) / boardSize, 650 / boardSize, 650 / boardSize);
         button.setBackground(DEFAULT_COLOUR);
         button.setForeground(DEFAULT_COLOUR); //EXPERIMENT WITH FOREGRND/BACKGRND
         button.setOpaque(true);

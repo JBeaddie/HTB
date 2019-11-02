@@ -23,7 +23,11 @@ public class Board {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isStopped = true;
 
-    private final int DEFAULT_NUM_PREY = 10;
+    private final int DEFAULT_NUM_PREY = 15;
+    private final int DEFAULT_NUM_PRED = 3;
+    private final int DEFUALT_WATER_AMOUNT = 30;
+
+    private Random random = new Random(1234);
 
     //TODO randomly pick which disaster is the next one.
     private NaturalDisaster currentDisaster = new Winter();
@@ -43,25 +47,47 @@ public class Board {
 
         cellButtons = new CellButton[BOARD_SIZE][BOARD_SIZE];
 
-        //Randomly adds prey to the Board.
+        //Init cells to the board
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 cellButtons[i][j] = new CellButton(i, j, BOARD_SIZE);
             }
         }
 
+        initWater();
         linkCells();
-
-
-        for (Pair p : getRandomCoords()) {
-            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
-        }
-
-
-
+        addInitialAnimals();
     }
 
     // Methods
+    public void initWater(){
+        // Pick A random Point on the map
+        int x = -1, y = -1;
+
+        do{
+            // Pick a new x and y
+            int newx = random.nextInt(BOARD_SIZE);
+            int newy = random.nextInt(BOARD_SIZE);
+
+            if(cellButtons[newx][newy].getCell().getAnimal() == null){
+                x = newx;
+                y = newy;
+            }
+        }while(x == -1);
+
+        cellButtons[x][y].getCell().setAnimal(new Water());
+    }
+
+    public void addInitialAnimals() {
+        for (Pair p : getRandomCoords(true)) {
+            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
+        }
+
+        for (Pair p : getRandomCoords(false)){
+            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Predator());
+        }
+    }
+
     public void update() {
 
         if (naturalDisasters) {
@@ -154,7 +180,8 @@ public class Board {
         return cellButtons;
     }
 
-    public Set<Pair> getRandomCoords() {
+    public Set<Pair> getRandomCoords(boolean forPrey) {
+        int size = forPrey ? DEFAULT_NUM_PREY : DEFAULT_NUM_PRED;
 
         Set randomCoords = new HashSet();
         Random random = new Random();
@@ -162,8 +189,9 @@ public class Board {
             int x = random.nextInt(BOARD_SIZE);
             int y = random.nextInt(BOARD_SIZE);
 
-            randomCoords.add(new Pair(x, y));
-        } while (randomCoords.size() < DEFAULT_NUM_PREY);
+            if(cellButtons[x][y].getCell().getAnimal() == null)
+                randomCoords.add(new Pair(x, y));
+        } while (randomCoords.size() < size);
 
         return randomCoords;
     }
@@ -172,6 +200,16 @@ public class Board {
         if (currentDisaster != null) {
             currentDisaster.occur(cellButtons);
         }
+    }
+
+    public void reset() {
+        for (CellButton[] cellButtonRow: cellButtons) {
+            for (CellButton cellButton: cellButtonRow) {
+                cellButton.getCell().setAnimal(null);
+                cellButton.display();
+            }
+        }
+        addInitialAnimals();
     }
 
 

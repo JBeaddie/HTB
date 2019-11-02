@@ -11,24 +11,38 @@ public class Display extends JFrame implements ActionListener {
 
     private JButton startButton = new JButton("Start");
     private JButton stopButton = new JButton("Stop");
+    private JButton resetButton = new JButton("Reset");
     private JButton preyButton = new JButton("Prey");
-    private final Color PANEL_BACKGROUND_COLOUR = Color.GRAY;
-    private final Color DEFAULT_COLOUR = Color.DARK_GRAY;
+    private final Color PANEL_BACKGROUND_COLOUR = new Color(156, 112, 75);
+    private final Color DEFAULT_COLOUR = new Color(156, 112, 75);
 
-    private JPanel panel = new JPanel();
+    private JPanel panel = new JPanelWithBackground("mars-terrain.jpg");
+    private JPanel greyPanel = new JPanel();
+    private JLayeredPane layeredPane = new JLayeredPaneWithBackground("stars-3.jpg");
 
     public Display(int boardSize) {
+
+        setPreferredSize(new Dimension(1920, 1080));
+        setLayout(new BorderLayout());
+        add(layeredPane, BorderLayout.CENTER);
+        layeredPane.setBounds(0, 0, 1920, 1080);
         setTitle("Species survival of the fittest");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setSize(700, 500);
-        setLayout(null);
+
+        greyPanel.setBounds(25, 25, 800, 800);
+        greyPanel.setBackground(PANEL_BACKGROUND_COLOUR);
+        greyPanel.setOpaque(true);
+
+        panel.setBounds(25, 25, 925, 1000);
+
+
+        layeredPane.add(greyPanel, 1, 0);
+        layeredPane.add(panel, 0, 0);
+        pack();
         setVisible(true);
 
-        panel.setBounds(50, 50, 600, 400);
-        panel.setBackground(PANEL_BACKGROUND_COLOUR);
-        panel.setOpaque(true);
-        add(panel);
+
 
         board = new Board(boardSize);
 
@@ -38,12 +52,13 @@ public class Display extends JFrame implements ActionListener {
     public void addButtons() {
         for ( CellButton[] cellRow : board.getCellButtons()) {
             for (CellButton cell : cellRow) {
-                panel.add(cell.getButton());
+                greyPanel.add(cell.getButton());
             }
         }
 
-        addButton(startButton, 445, 100);
-        addButton(stopButton, 445, 200);
+        addButton(startButton, 830, 50);
+        addButton(stopButton, 830, 150);
+        addButton(resetButton, 830, 250);
 
 
         repaint();
@@ -67,6 +82,9 @@ public class Display extends JFrame implements ActionListener {
             board.startRepeatedUpdates();
         } else if (e.getSource() == stopButton) {
             board.stopRepeatedUpdates();
+        } else if (e.getSource() == resetButton) {
+            board.reset();
+//            repaint();
         }
     }
 }
