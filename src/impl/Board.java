@@ -24,8 +24,8 @@ public class Board {
 
     private final int DEFAULT_NUM_PREY = 15;
     private final int DEFAULT_NUM_PRED = 3;
-    private final double WATER_DENSITY = 0.2;
-    private final int DEFUALT_WATER_AMOUNT = 60;
+    private final double WATER_DENSITY = 0.4;
+    private final int DEFUALT_WATER_AMOUNT = 80;
 
     private Random random = new Random(1234);
 
@@ -49,9 +49,8 @@ public class Board {
         }
 
         linkCells();
-        do {
+        while (amountOfWater < DEFUALT_WATER_AMOUNT)
             initWater();
-        }while (amountOfWater < DEFUALT_WATER_AMOUNT);
         addInitialAnimals();
     }
 
