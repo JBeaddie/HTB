@@ -15,7 +15,7 @@ import java.util.List;
 public class Predator extends Animal {
     // Attributes
     private final Color COLOR = Color.RED;
-    private double deathThreshold = 0.1;
+    private double deathThreshold = 0.2;
 
     // Constructor
     public Predator(boolean isUpdated) {
@@ -77,7 +77,7 @@ public class Predator extends Animal {
 
                 if (canMate && emptyCell != null) {
                     emptyCell.setAnimal(new Predator(true));
-                    emptyCell.getAnimal().hungerLevel = hungerLevel - 1;
+                    emptyCell.getAnimal().hungerLevel = hungerLevel + 2;
                     mateCell.getAnimal().setUpdated(true);
                     mateCell.getAnimal().updateLevels();
                     mateCell.getAnimal().setMatingLevel(0);

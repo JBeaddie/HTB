@@ -26,8 +26,8 @@ public class Board {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isStopped = true;
 
-    public static int DEFAULT_NUM_PREY = 15;
-    public static int DEFAULT_NUM_PRED = 3;
+    public static int DEFAULT_NUM_PREY = 30;
+    public static int DEFAULT_NUM_PRED = 6;
 
     private Random random = new Random();
 
@@ -109,12 +109,16 @@ public class Board {
 
 
     private void addInitialAnimals() {
-        for (Pair p : getRandomCoords(true)) {
-            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
+        if(Board.DEFAULT_NUM_PREY > 0) {
+            for (Pair p : getRandomCoords(true)) {
+                cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
+            }
         }
 
-        for (Pair p : getRandomCoords(false)){
-            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Predator());
+        if(Board.DEFAULT_NUM_PRED > 0) {
+            for (Pair p : getRandomCoords(false)) {
+                cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Predator());
+            }
         }
     }
 

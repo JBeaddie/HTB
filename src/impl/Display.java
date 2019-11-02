@@ -63,12 +63,11 @@ public class Display extends JFrame implements ActionListener {
         pack();
         setVisible(true);
 
-
-
         board = new Board(boardSize);
 
         addButtons();
         addLabelsAndTextFields();
+        initTextFeilds();
         repaint();
     }
 
@@ -196,6 +195,17 @@ public class Display extends JFrame implements ActionListener {
         Main.MIN_WATER = MIN_WATER;
         Board.DEFAULT_NUM_PRED = NO_OF_PRED;
         Board.DEFAULT_NUM_PREY = NO_OF_PREY;
+    }
+
+    private void initTextFeilds(){
+        predMatingFactor.setText("" + Main.PRED_MATING_FACTOR);
+        predHungerFactor.setText("" + Main.PRED_HUNGER_FACTOR);
+        preyMatingFactor.setText("" + Main.PREY_MATING_FACTOR);
+        preyHungerFactor.setText("" + Main.PRED_HUNGER_FACTOR);
+        numOfPred.setText("" + Board.DEFAULT_NUM_PRED);
+        numOfPrey.setText("" + Board.DEFAULT_NUM_PREY);
+        minAmountOfWater.setText("" + Main.MIN_WATER);
+        waterDensityFactor.setText("" + Main.WATER_DENSITY_FACTOR);
     }
 
     @Override
