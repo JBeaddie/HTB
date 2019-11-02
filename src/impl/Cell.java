@@ -1,8 +1,6 @@
 package impl;
 
-import interfaces.ICell;
-
-public class Cell implements ICell {
+public class Cell{
 
     private int xcoord;
     private int ycoord;

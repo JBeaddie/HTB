@@ -20,11 +20,11 @@ public class Display extends JFrame implements ActionListener {
         setTitle("Species survival of the fittest");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setSize(1000, 1000);
+        setSize(500, 500);
         setLayout(null);
         setVisible(true);
 
-        panel.setBounds(50, 50, 900, 900);
+        panel.setBounds(50, 50, 400, 400);
         panel.setBackground(PANEL_BACKGROUND_COLOUR);
         panel.setOpaque(true);
         add(panel);

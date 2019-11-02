@@ -1,8 +1,5 @@
 package impl;
 
-import interfaces.ICell;
-import interfaces.ICellButton;
-
 import javax.swing.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
