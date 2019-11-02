@@ -5,6 +5,7 @@ import Actions.Move;
 import Animal.Animal;
 import Animal.*;
 
+import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import Actions.Action;
+import Event.Hurricane;
 import Event.NaturalDisaster;
 import Event.Winter;
 
@@ -29,8 +31,9 @@ public class Board {
 
     private Random random = new Random();
 
-    //TODO randomly pick which disaster is the next one.
-    private NaturalDisaster currentDisaster = new Winter();
+    //Natural Disaster Properties
+    private NaturalDisaster[] disasters = new NaturalDisaster[2];
+    private NaturalDisaster currentDisaster;
     private final int DISASTER_LOTTERY_NUM = 1;
     boolean naturalDisasters = false;
     private final int DISASTER_CHANCE = 10;
@@ -58,6 +61,9 @@ public class Board {
         while (amountOfWater < Main.MIN_WATER)
             initWater();
         addInitialAnimals();
+
+        disasters[0] = new Winter();
+        disasters[1] = new Hurricane();
     }
 
     // Methods
@@ -118,6 +124,7 @@ public class Board {
             Random rnd = new Random();
             int chance = rnd.nextInt(DISASTER_CHANCE + 1);
             if (DISASTER_LOTTERY_NUM == chance) {
+                currentDisaster = disasters[random.nextInt(2)];
                 System.out.println("DISASTER OCCURRED");
                 currentDisaster.occur(cellButtons);
             }

@@ -18,15 +18,16 @@ public class Hurricane extends NaturalDisaster {
 
     @Override
     public void occur(CellButton[][] cellButtons) {
-        int x = 1; //from random after pull
-        int y = 1;
+        int x = random.nextInt(cellButtons.length);
+        int y = random.nextInt(cellButtons.length);
 
-        int radius = 5; //TODO from random
+        //length of hurricane (is a square)
+        int radius = random.nextInt(cellButtons.length/2);
 
         for (int i = x; i < x + radius; i++) {
             for (int j = y; j < y + radius; j++) {
                 if (y < cellButtons.length && x < cellButtons.length) {
-                    if (getFatalityFactor() > dfdf && !(cellButtons[i][j].getCell().getAnimal() instanceof Water)) {
+                    if (getFatalityFactor() > random.nextDouble() && !(cellButtons[i][j].getCell().getAnimal() instanceof Water)) {
                         cellButtons[i][j].getCell().setAnimal(null);
                     }
                 }
