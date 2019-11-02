@@ -26,10 +26,8 @@ public class Board {
 
     private final int DEFAULT_NUM_PREY = 15;
     private final int DEFAULT_NUM_PRED = 3;
-    private final double WATER_DENSITY = 0.4;
-    private final int DEFUALT_WATER_AMOUNT = 80;
 
-    private Random random = new Random(1234);
+    private Random random = new Random();
 
     //TODO randomly pick which disaster is the next one.
     private NaturalDisaster currentDisaster = new Winter();
@@ -57,7 +55,7 @@ public class Board {
         }
 
         linkCells();
-        while (amountOfWater < DEFUALT_WATER_AMOUNT)
+        while (amountOfWater < Main.MIN_WATER)
             initWater();
         addInitialAnimals();
     }
@@ -90,7 +88,7 @@ public class Board {
 
     private void addWater(int x, int y, int layer){
         // See if water the space is empty
-        if(cellButtons[x][y].getCell().getAnimal() == null && random.nextDouble() >= (1d - (WATER_DENSITY / layer))){
+        if(cellButtons[x][y].getCell().getAnimal() == null && random.nextDouble() >= (1d - (Main.WATER_DENSITY_FACTOR / layer))){
             // Add water
             cellButtons[x][y].getCell().setAnimal(new Water());
             amountOfWater++;
@@ -231,11 +229,13 @@ public class Board {
     public void reset() {
         for (CellButton[] cellButtonRow: cellButtons) {
             for (CellButton cellButton: cellButtonRow) {
-                if(!(cellButton.getCell().getAnimal() instanceof Water)) {
-                    cellButton.getCell().setAnimal(null);
-                }
+                cellButton.getCell().setAnimal(null);
                 cellButton.display();
             }
+        }
+        amountOfWater = 0;
+        while (amountOfWater < Main.MIN_WATER){
+            initWater();
         }
         addInitialAnimals();
     }
