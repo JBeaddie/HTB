@@ -30,7 +30,11 @@ public class Cell{
         return animal.getColor();
     }
 
-    public void addNeighbours(Board board) {
+	public List<Cell> getNeighbours() {
+		return neighbours;
+	}
+
+	public void addNeighbours(Board board) {
         addNeighbour(board.getCell(xcoord - 1, ycoord - 1));
         addNeighbour(board.getCell(xcoord, ycoord - 1));
         addNeighbour(board.getCell(xcoord + 1, ycoord - 1));

@@ -6,6 +6,7 @@ import impl.Pair;
 
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class Prey extends Animal {
@@ -30,25 +31,26 @@ public class Prey extends Animal {
 	}
 
 	@Override
-	public void update(Cell currentCell) {
+	public Pair update(Cell currentCell) {
 		if(!isUpdated) {
 			//get neighbours
 			Pair nextMove = nextPosition(currentCell.getNeighbours());
 			// get random move
 
 			if(nextMove == null) {
-				return currentCell;
+				return new Pair(currentCell.getXcoord(), currentCell.getYcoord());
 			} else {
 				return nextMove;
 			}
 
 		}
+		return new Pair(currentCell.getXcoord(), currentCell.getYcoord());
 	}
 
-	@Override
-	public Pair nextPosition(LinkedList<Cell> neighbours) {
+
+	public Pair nextPosition(List<Cell> neighbours) {
 		// empty list for adjacent cells
-		LinkedList<Cell> emptyCells = new LinkedList<>();
+		List<Cell> emptyCells = new LinkedList<>();
 		// go through cells and add any that don't have an animal
 		for (Cell cell: neighbours) {
 			if(cell.getAnimal() == null) {
