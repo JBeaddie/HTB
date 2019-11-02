@@ -57,7 +57,7 @@ public class Prey extends Animal {
 				emptyCells.add(cell);
 			}
 		}
-		// checks that there is a possinle move
+		// checks that there is a possible move
 		if(emptyCells.size() == 0) {
 			return null;
 		} else {
