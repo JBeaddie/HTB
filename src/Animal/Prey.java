@@ -43,15 +43,19 @@ public class Prey extends Animal {
 
 	@Override
 	public Pair nextPosition(LinkedList<Cell> neighbours) {
+		// empty list for adjacent cells
 		LinkedList<Cell> emptyCells = new LinkedList<>();
+		// go through cells and add any that don't have an animal
 		for (Cell cell: neighbours) {
 			if(cell.getAnimal() == null) {
 				emptyCells.add(cell);
 			}
 		}
+		// checks that there is a possinle move
 		if(emptyCells.size() == 0) {
 			return null;
 		} else {
+			// picks a random move and returns it
 			Random rand = new Random();
 			int randomCellIndex = rand.nextInt(emptyCells.size());
 			Cell moveTo = emptyCells.get(randomCellIndex);
