@@ -19,6 +19,7 @@ public abstract class Animal {
 
 	public Animal() {}
 
+	// Method s
 	public abstract double calculateHungerFactor();
 
 	public abstract double calculateMatingFactor();
@@ -30,11 +31,7 @@ public abstract class Animal {
 		}
 	}
 
-	public Pair nextPosition(List<Cell> neigbours) {
-		// TODO
-		return null;
-	}
-
+	public abstract Pair nextPosition();
 
     public abstract Color getColor();
 }
