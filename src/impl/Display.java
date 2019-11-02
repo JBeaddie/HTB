@@ -63,6 +63,10 @@ public class Display extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //if (e.getSource())
+        if (e.getSource() == startButton) {
+            board.startRepeatedUpdates();
+        } else if (e.getSource() == stopButton) {
+            board.stopRepeatedUpdates();
+        }
     }
 }

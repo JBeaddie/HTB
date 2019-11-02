@@ -32,7 +32,7 @@ public class Prey extends Animal {
 
 	@Override
 	public Pair update(Cell currentCell) {
-		if(!isUpdated) {
+		if(!isUpdated()) {
 			//get neighbours
 			Pair nextMove = nextPosition(currentCell.getNeighbours());
 			// get random move
