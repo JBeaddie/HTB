@@ -1,5 +1,6 @@
 package impl;
 
+import Actions.Die;
 import Actions.Move;
 import Animal.Animal;
 import Animal.*;
@@ -20,7 +21,7 @@ public class Board {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isStopped = true;
 
-    private final int DEFAULT_NUM_PREY = 10000;
+    private final int DEFAULT_NUM_PREY = 10;
 
     // Constructor
     public Board(int boardSize) {
@@ -80,6 +81,11 @@ public class Board {
                 // Animal has been updated
                 animal.setUpdated(true);
                 animal.updateLevels();
+
+                // Check if action is die
+                if(action instanceof Die){
+                    cellButtons[x][y].getCell().setAnimal(null);
+                }
             }
         }
 

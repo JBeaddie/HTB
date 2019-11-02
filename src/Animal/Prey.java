@@ -1,6 +1,7 @@
 package Animal;
 
 import Actions.Action;
+import Actions.Die;
 import Actions.Mate;
 import Actions.Move;
 import impl.Cell;
@@ -18,6 +19,12 @@ public class Prey extends Animal {
 
 	// Constructor
 	public Prey(boolean isUpdated){
+		// Hunger levels
+		this.hungerThreshold = 0.1;
+		this.hungerFactor = 0.011;
+		this.hungerLevel = 0;
+
+		// Mating levels
 		this.matingThreshold = 0.7;
 		this.matingLevel = 0;
 		this.matingFactor = 0.01;
@@ -47,7 +54,9 @@ public class Prey extends Animal {
 
 		if(!isUpdated()) {
 			// Check if mating level is above 0.7
-			if (calculateMatingFactor() >= matingThreshold) {
+			if(calculateHungerFactor() <= hungerThreshold) {
+				return new Die();
+			}else if (calculateMatingFactor() >= matingThreshold) {
 				boolean canMate = false;
 				Cell emptyCell = null;
 				Cell mateCell = null;
