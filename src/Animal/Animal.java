@@ -5,7 +5,7 @@ import impl.Pair;
 import java.awt.*;
 
 public abstract class Animal {
-
+	// Attributes
 	protected double hungerFactor;
 	protected int hungerLevel;
 	protected double matingFactor;
@@ -13,21 +13,14 @@ public abstract class Animal {
 	private Pair currentPosition;
 	private Color cellColour;
 
-	public Animal() {}
+	// Constructor
 
+	// Method s
 	public abstract double calculateHungerFactor();
 
 	public abstract double calculateMatingFactor();
 
-	public void update() {
-
-	}
-
-	public Pair nextPosition() {
-		// TODO
-		return null;
-	}
-
+	public abstract Pair nextPosition();
 
     public abstract Color getColor();
 }
