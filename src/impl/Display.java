@@ -1,5 +1,7 @@
 package impl;
 
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,13 +21,17 @@ public class Display extends JFrame implements ActionListener {
     private JTextField predHungerFactor = new JTextField();
     private JTextField preyMatingFactor = new JTextField();
     private JTextField preyHungerFactor = new JTextField();
-    private JLabel predMatingFactorLabel = new JLabel("Predator Mating Factor:");
-    private JLabel predHungerFactorLabel = new JLabel("Predator Hunger Factor:");
+    private JTextField numOfPrey = new JTextField();
+    private JTextField numOfPred = new JTextField();
+    private JLabel predMatingFactorLabel = new JLabel("Pred Mating Factor:");
+    private JLabel numOfPreyLabel = new JLabel("Number Of Prey");
+    private JLabel numOfPredLabel = new JLabel("Number of Predators");
+    private JLabel predHungerFactorLabel = new JLabel("Pred Hunger Factor:");
     private JLabel preyMatingFactorLabel = new JLabel("Prey Mating Factor:");
     private JLabel preyHungerFactorLabel = new JLabel("Prey Hunger Factor:");
-    private JLabel waterDensityFactorLabel = new JLabel("Water Density Factor:");
+    private JLabel waterDensityFactorLabel = new JLabel("Water Density:");
     private JTextField waterDensityFactor = new JTextField();
-    private JLabel minAmountOfWaterLabel = new JLabel("Min amount of Water:");
+    private JLabel minAmountOfWaterLabel = new JLabel("Min Water:");
     private JTextField minAmountOfWater = new JTextField();
 
     private JButton submitFactors = new JButton("Submit Factors");
@@ -111,19 +117,24 @@ public class Display extends JFrame implements ActionListener {
     }
 
     public void addLabelsAndTextFields() {
-        addLabel(predHungerFactorLabel, 825, 350);
-        addLabel(predMatingFactorLabel, 825, 400);
-        addLabel(preyHungerFactorLabel, 825, 450);
-        addLabel(preyMatingFactorLabel, 825, 500);
-        addLabel(waterDensityFactorLabel, 825, 550);
-        addLabel(minAmountOfWaterLabel, 825, 600);
-        addTextField(predHungerFactor,975, 350 );
-        addTextField(predMatingFactor,975, 400 );
-        addTextField(preyHungerFactor,975, 450 );
-        addTextField(preyMatingFactor,975, 500 );
-        addTextField(waterDensityFactor, 975, 550);
-        addTextField(minAmountOfWater, 975, 600);
+        addLabel(predHungerFactorLabel, 825, 325);
+        addLabel(predMatingFactorLabel, 825, 375);
+        addLabel(preyHungerFactorLabel, 825, 425);
+        addLabel(preyMatingFactorLabel, 825, 475);
+        addLabel(waterDensityFactorLabel, 825, 525);
+        addLabel(minAmountOfWaterLabel, 825, 575);
+        addTextField(predHungerFactor,975, 325 );
+        addTextField(predMatingFactor,975, 375 );
+        addTextField(preyHungerFactor,975, 425 );
+        addTextField(preyMatingFactor,975, 475 );
+        addTextField(waterDensityFactor, 975, 525);
+        addTextField(minAmountOfWater, 975, 575);
+        addLabel(numOfPreyLabel, 825, 625);
+        addLabel(numOfPredLabel, 825, 675);
+        addTextField(numOfPrey, 975, 625);
+        addTextField(numOfPred, 975, 675);
         addButton(submitFactors, 900, 750);
+
     }
 
     //********* END OF BUTTONS *********//
@@ -135,6 +146,8 @@ public class Display extends JFrame implements ActionListener {
         double PREY_HUNGER_FACTOR = 0.01;
         double WATER_DENSITY_FACTOR = 0.3;
         double MIN_WATER = 30;
+        int NO_OF_PREY = 15;
+        int NO_OF_PRED = 3;
         try {
             if (Double.parseDouble(predHungerFactor.getText()) <= 1 && Double.parseDouble(predHungerFactor.getText()) > 0) {
                 PRED_HUNGER_FACTOR = Double.parseDouble(predHungerFactor.getText());
@@ -165,13 +178,24 @@ public class Display extends JFrame implements ActionListener {
                 MIN_WATER = Double.parseDouble(minAmountOfWater.getText());
             }
         } catch (NumberFormatException e) { }
+        try {
+            if (Integer.parseInt(numOfPred.getText()) <= board.getBOARD_SIZE() * board.getBOARD_SIZE() && Integer.parseInt(numOfPred.getText()) >= 0) {
+                NO_OF_PRED = Integer.parseInt(numOfPred.getText());
+            }
+        } catch (NumberFormatException e) { }
+        try {
+            if (Integer.parseInt(numOfPrey.getText()) <= board.getBOARD_SIZE() * board.getBOARD_SIZE() && Integer.parseInt(numOfPrey.getText()) >= 0) {
+                NO_OF_PREY = Integer.parseInt(numOfPrey.getText());
+            }
+        } catch (NumberFormatException e) { }
         Main.PRED_HUNGER_FACTOR = PRED_HUNGER_FACTOR;
         Main.PRED_MATING_FACTOR = PRED_MATING_FACTOR;
         Main.PREY_HUNGER_FACTOR = PREY_HUNGER_FACTOR;
         Main.PREY_MATING_FACTOR = PREY_MATING_FACTOR;
         Main.WATER_DENSITY_FACTOR = WATER_DENSITY_FACTOR;
         Main.MIN_WATER = MIN_WATER;
-
+        Board.DEFAULT_NUM_PRED = NO_OF_PRED;
+        Board.DEFAULT_NUM_PREY = NO_OF_PREY;
     }
 
     @Override
@@ -183,10 +207,11 @@ public class Display extends JFrame implements ActionListener {
             board.stopRepeatedUpdates();
         } else if (e.getSource() == resetButton) {
             board.reset();
-            Main.resetFactors();
+//            Main.resetFactors();
 //            repaint();
         } else if (e.getSource() == submitFactors){
             getInitialFactors();
+            board.reset();
         }
     }
 }

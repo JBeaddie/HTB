@@ -24,8 +24,8 @@ public class Board {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isStopped = true;
 
-    private final int DEFAULT_NUM_PREY = 15;
-    private final int DEFAULT_NUM_PRED = 3;
+    public static int DEFAULT_NUM_PREY = 15;
+    public static int DEFAULT_NUM_PRED = 3;
 
     private Random random = new Random();
 
