@@ -14,7 +14,7 @@ public class CellButton implements ActionListener {
     public CellButton(int xcoord, int ycoord, int boardSize) {
 
         cell = new Cell(xcoord, ycoord);
-        button.setBounds(100 + (xcoord * 300) / boardSize, 100 + (ycoord * 300) / boardSize, 250 / boardSize, 250 / boardSize);
+        button.setBounds(50 + (xcoord * 800) / boardSize, 50 + (ycoord * 800) / boardSize, 750 / boardSize, 750 / boardSize);
         button.setBackground(DEFAULT_COLOUR);
         button.setForeground(DEFAULT_COLOUR); //EXPERIMENT WITH FOREGRND/BACKGRND
         button.setOpaque(true);
