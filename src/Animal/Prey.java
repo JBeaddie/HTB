@@ -64,6 +64,7 @@ public class Prey extends Animal {
 			// picks a random move and returns it
 			Random rand = new Random();
 			int randomCellIndex = rand.nextInt(emptyCells.size());
+			System.out.println(randomCellIndex);
 			Cell moveTo = emptyCells.get(randomCellIndex);
 			return new Pair(moveTo.getXcoord(),moveTo.getYcoord());
 		}

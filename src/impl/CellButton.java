@@ -33,7 +33,7 @@ public class CellButton implements ActionListener {
 
         // Reset animal update
         if(cell.getAnimal() != null)
-            cell.getAnimal().setUpdated(true);
+            cell.getAnimal().setUpdated(false);
     }
 
     public JButton getButton() {
