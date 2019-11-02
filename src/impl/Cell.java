@@ -9,6 +9,7 @@ import java.util.List;
 public class Cell{
     // Attributes
     private final Color BASE_COLOR = Color.LIGHT_GRAY;
+    private int[][] touchingPoints = new int[][]{{1,0},{-1,0},{0,1},{0,-1},{1,-1},{1,1},{-1,-1},{-1,1}};
     private List<Cell> neighbours = new ArrayList<>();
 
     private int xcoord;
@@ -35,22 +36,18 @@ public class Cell{
 	}
 
 	public void addNeighbours(Board board) {
-        addNeighbour(board.getCell(xcoord - 1, ycoord - 1));
-        addNeighbour(board.getCell(xcoord, ycoord - 1));
-        addNeighbour(board.getCell(xcoord + 1, ycoord - 1));
-        addNeighbour(board.getCell(xcoord - 1, ycoord));
-        addNeighbour(board.getCell(xcoord + 1, ycoord));
-        addNeighbour(board.getCell(xcoord - 1, ycoord + 1));
-        addNeighbour(board.getCell(xcoord, ycoord + 1));
-        addNeighbour(board.getCell(xcoord + 1, ycoord + 1));
+        for(int[] pair : touchingPoints){
+            // Check within bounds
+            int newx = xcoord + pair[0];
+            int newy = ycoord + pair[1];
 
-    }
-
-    public void addNeighbour(Cell cell) {
-        if (cell != null && !neighbours.contains(cell)) {
-            neighbours.add(cell);
+            // Check within bounds
+            if(newx >= 0 && newx < board.getBOARD_SIZE() && newy >= 0 && newy < board.getBOARD_SIZE()){
+                neighbours.add(board.getCell(newx, newy));
+            }
         }
     }
+
 
     public Animal getAnimal() {
         return animal;
