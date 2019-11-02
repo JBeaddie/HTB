@@ -42,6 +42,8 @@ public class Board {
             }
         }
 
+        cellButtons[0][0].getCell().setAnimal(new Predator());
+        cellButtons[0][1].getCell().setAnimal(new Predator());
         linkCells();
 
 

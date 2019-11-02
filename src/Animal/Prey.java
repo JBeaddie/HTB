@@ -21,7 +21,7 @@ public class Prey extends Animal {
 	public Prey(boolean isUpdated){
 		// Hunger levels
 		this.hungerThreshold = 0.1;
-		this.hungerFactor = 0.01;
+		this.hungerFactor = 0.00001;
 		this.hungerLevel = 0;
 
 		// Mating levels
@@ -38,13 +38,12 @@ public class Prey extends Animal {
 	// Methods
 	@Override
 	public Action update(Cell currentCell) {
-		System.out.println(this.calculateMatingFactor());
-
 		if(!isUpdated()) {
-			// Check if mating level is above 0.7
 			if(calculateHungerFactor() <= hungerThreshold) {
+				// The prey has died from old age
 				return new Die();
 			}else if (calculateMatingFactor() >= matingThreshold) {
+				// The prey is looking for a mate
 				boolean canMate = false;
 				Cell emptyCell = null;
 				Cell mateCell = null;
@@ -88,27 +87,6 @@ public class Prey extends Animal {
 		}
 
 		return new Move(nextMove);
-	}
-
-	public Pair nextPosition(List<Cell> neighbours) {
-		// empty list for adjacent cells
-		List<Cell> emptyCells = new LinkedList<>();
-		// go through cells and add any that don't have an animal
-		for (Cell cell: neighbours) {
-			if(cell.getAnimal() == null) {
-				emptyCells.add(cell);
-			}
-		}
-		// checks that there is a possible move
-		if(emptyCells.size() == 0) {
-			return null;
-		} else {
-			// picks a random move and returns it
-			Random rand = new Random();
-			int randomCellIndex = rand.nextInt(emptyCells.size());
-			Cell moveTo = emptyCells.get(randomCellIndex);
-			return new Pair(moveTo.getXcoord(),moveTo.getYcoord());
-		}
 	}
 
 	@Override
