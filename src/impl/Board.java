@@ -4,7 +4,9 @@ import Actions.Move;
 import Animal.Animal;
 import Animal.*;
 
-import javax.swing.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,11 +20,21 @@ public class Board {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isStopped = true;
 
+    private final int DEFAULT_NUM_PREY = 10000;
+
     // Constructor
     public Board(int boardSize) {
         this.BOARD_SIZE = boardSize;
+
+        //Makes sure that the number of prey is not more than the number of cells.
+        if (DEFAULT_NUM_PREY > BOARD_SIZE*BOARD_SIZE) {
+            System.err.println("Error: you chose more prey than tiles.");
+            System.exit(0);
+        }
+
         cellButtons = new CellButton[BOARD_SIZE][BOARD_SIZE];
 
+        //Randomly adds prey to the Board.
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 cellButtons[i][j] = new CellButton(i, j, BOARD_SIZE);
@@ -30,8 +42,14 @@ public class Board {
         }
 
         linkCells();
-        cellButtons[10][0].getCell().setAnimal(new Prey());
-        cellButtons[5][0].getCell().setAnimal(new Prey());
+
+
+        for (Pair p : getRandomCoords()) {
+            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
+        }
+
+
+
     }
 
     // Methods
@@ -109,4 +127,20 @@ public class Board {
     public CellButton[][] getCellButtons() {
         return cellButtons;
     }
+
+    public Set<Pair> getRandomCoords() {
+
+        Set randomCoords = new HashSet();
+        Random random = new Random();
+        do {
+            int x = random.nextInt(BOARD_SIZE);
+            int y = random.nextInt(BOARD_SIZE);
+
+            randomCoords.add(new Pair(x, y));
+        } while (randomCoords.size() < DEFAULT_NUM_PREY);
+
+        return randomCoords;
+    }
+
+
 }
