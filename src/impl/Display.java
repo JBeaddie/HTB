@@ -16,20 +16,33 @@ public class Display extends JFrame implements ActionListener {
     private final Color PANEL_BACKGROUND_COLOUR = Color.GRAY;
     private final Color DEFAULT_COLOUR = Color.DARK_GRAY;
 
-    private JPanel panel = new JPanel();
+    private JPanel panel = new JPanelWithBackground("terrain.jpg");
+    private JPanel greyPanel = new JPanel();
+    private JLayeredPane layeredPane = new JLayeredPaneWithBackground("stars-3.jpg");
 
     public Display(int boardSize) {
+
+        setPreferredSize(new Dimension(1920, 1080));
+        setLayout(new BorderLayout());
+        add(layeredPane, BorderLayout.CENTER);
+        layeredPane.setBounds(0, 0, 1920, 1080);
         setTitle("Species survival of the fittest");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setSize(700, 500);
-        setLayout(null);
+
+        greyPanel.setBounds(25, 25, 400, 400);
+        greyPanel.setBackground(PANEL_BACKGROUND_COLOUR);
+        greyPanel.setOpaque(true);
+
+        panel.setBounds(25, 25, 650, 400);
+
+
+        layeredPane.add(greyPanel, 1, 0);
+        layeredPane.add(panel, 0, 0);
+        pack();
         setVisible(true);
 
-        panel.setBounds(50, 50, 600, 400);
-        panel.setBackground(PANEL_BACKGROUND_COLOUR);
-        panel.setOpaque(true);
-        add(panel);
+
 
         board = new Board(boardSize);
 
@@ -39,7 +52,7 @@ public class Display extends JFrame implements ActionListener {
     public void addButtons() {
         for ( CellButton[] cellRow : board.getCellButtons()) {
             for (CellButton cell : cellRow) {
-                panel.add(cell.getButton());
+                greyPanel.add(cell.getButton());
             }
         }
 
