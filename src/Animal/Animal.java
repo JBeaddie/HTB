@@ -1,5 +1,6 @@
 package Animal;
 
+import Actions.Action;
 import impl.Cell;
 import impl.Pair;
 
@@ -25,7 +26,7 @@ public abstract class Animal {
 
 	public abstract double calculateMatingFactor();
 
-	public abstract Pair update(Cell currentCell);
+	public abstract Action update(Cell currentCell);
 
 	public abstract Pair nextPosition(List<Cell> neighbours);
 
@@ -37,5 +38,19 @@ public abstract class Animal {
 
 	public void setUpdated(boolean updated) {
 		isUpdated = updated;
+	}
+
+
+	public void updateLevels(){
+		matingLevel++;
+		hungerLevel++;
+	}
+
+	public int getMatingLevel() {
+		return matingLevel;
+	}
+
+	public void setMatingLevel(int matingLevel) {
+		this.matingLevel = matingLevel;
 	}
 }

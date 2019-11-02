@@ -28,6 +28,7 @@ public class Cell{
         if(animal == null)
             return BASE_COLOR;
 
+
         return animal.getColor();
     }
 
