@@ -2,8 +2,12 @@ package impl;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Display extends JFrame {
+public class Display extends JFrame implements ActionListener {
+
+    private Board board;
 
     private JButton startButton = new JButton("Start");
     private JButton stopButton = new JButton("Stop");
@@ -12,7 +16,7 @@ public class Display extends JFrame {
 
     private JPanel panel = new JPanel();
 
-    public Display() {
+    public Display(int boardSize) {
         setTitle("Species survival of the fittest");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -25,7 +29,23 @@ public class Display extends JFrame {
         panel.setOpaque(true);
         add(panel);
 
+        board = new Board(boardSize);
+
+        addButtons();
+    }
+
+    public void addButtons() {
+        for ( CellButton[] cellRow : board.getCellButtons()) {
+            for (CellButton cell : cellRow) {
+                panel.add(cell.getButton());
+            }
+        }
+        repaint();
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
+    }
 }

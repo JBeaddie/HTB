@@ -14,16 +14,24 @@ public class CellButton implements ActionListener {
     public CellButton(int xcoord, int ycoord, int boardSize) {
 
         cell = new Cell(xcoord, ycoord);
-        button.setBounds(100 + (xcoord * 300) / n, 10 + (ycoord * 300) / n, 250 / n, 250 / n);
+        button.setBounds(100 + (xcoord * 300) / boardSize, 100 + (ycoord * 300) / boardSize, 250 / boardSize, 250 / boardSize);
         button.setBackground(DEFAULT_COLOUR);
         button.setForeground(DEFAULT_COLOUR); //EXPERIMENT WITH FOREGRND/BACKGRND
         button.setOpaque(true);
         button.setBorderPainted(false);
+        button.addActionListener(this);
+
+
     }
 
+    public JButton getButton() {
+        return button;
+    }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button) {
 
+        }
     }
 }
