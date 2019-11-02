@@ -6,13 +6,18 @@ import java.awt.*;
 
 public abstract class Animal {
 
-	private double hungerFactor;
-	private double matingFactor;
+	protected double hungerFactor;
+	protected int hungerLevel;
+	protected double matingFactor;
+	protected int matingLevel;
 	private Pair currentPosition;
 	private Color cellColour;
 
 	public Animal() {}
 
+	public abstract double calculateHungerFactor();
+
+	public abstract double calculateMatingFactor();
 
 	public void update() {
 

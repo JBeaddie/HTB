@@ -10,7 +10,7 @@ public class Main {
                 throw new ArrayIndexOutOfBoundsException();
             }
 
-            boardSize = Integer.parseInt(args[0]);
+            int boardSize = Integer.parseInt(args[0]);
 
             if (boardSize <= 9) {
                 throw new NumberFormatException();
