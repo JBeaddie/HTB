@@ -55,4 +55,13 @@ public class Cell{
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
+
+	public int getXcoord() {
+		return xcoord;
+	}
+
+	public int getYcoord() {
+		return ycoord;
+	}
+
 }

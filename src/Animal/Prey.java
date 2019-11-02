@@ -1,6 +1,12 @@
 package Animal;
 
+import impl.Cell;
+import impl.CellButton;
+import impl.Pair;
+
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class Prey extends Animal {
 	// Attributes
@@ -21,6 +27,36 @@ public class Prey extends Animal {
 		double mating =1 - Math.exp(-1 * matingFactor * matingLevel);
 		matingLevel++;
 		return mating;
+	}
+
+	@Override
+	public void update(Cell currentCell) {
+		if(!isUpdated) {
+			//get neighbours
+			// get random move
+			Pair nextMove;
+			// move to next position
+			return nextMove;
+			// set currentpos to null
+		}
+	}
+
+	@Override
+	public Pair nextPosition(LinkedList<Cell> neighbours) {
+		LinkedList<Cell> emptyCells = new LinkedList<>();
+		for (Cell cell: neighbours) {
+			if(cell.getAnimal() == null) {
+				emptyCells.add(cell);
+			}
+		}
+		if(emptyCells.size() == 0) {
+			return null;
+		} else {
+			Random rand = new Random();
+			int randomCellIndex = rand.nextInt(emptyCells.size());
+			Cell moveTo = emptyCells.get(randomCellIndex);
+			return new Pair(moveTo.getXcoord(),moveTo.getYcoord());
+		}
 	}
 
 	@Override
