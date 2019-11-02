@@ -30,11 +30,11 @@ public class Display extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
-        greyPanel.setBounds(25, 25, 400, 400);
+        greyPanel.setBounds(25, 25, 800, 800);
         greyPanel.setBackground(PANEL_BACKGROUND_COLOUR);
         greyPanel.setOpaque(true);
 
-        panel.setBounds(25, 25, 650, 400);
+        panel.setBounds(25, 25, 975, 800);
 
 
         layeredPane.add(greyPanel, 1, 0);
@@ -56,9 +56,9 @@ public class Display extends JFrame implements ActionListener {
             }
         }
 
-        addButton(startButton, 445, 50);
-        addButton(stopButton, 445, 150);
-        addButton(resetButton, 445, 250);
+        addButton(startButton, 830, 50);
+        addButton(stopButton, 830, 150);
+        addButton(resetButton, 830, 250);
 
 
         repaint();
