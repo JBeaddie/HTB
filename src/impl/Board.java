@@ -32,8 +32,8 @@ public class Board {
     //TODO randomly pick which disaster is the next one.
     private NaturalDisaster currentDisaster = new Winter();
     private final int DISASTER_LOTTERY_NUM = 1;
-    boolean naturalDisasters = true;
-    private final int DISASTER_CHANCE = 10;
+    private boolean naturalDisasters = true;
+    private final int DISASTER_CHANCE = 20;
 
     // Constructor
     public Board(int boardSize) {
@@ -92,7 +92,7 @@ public class Board {
 
         if (naturalDisasters) {
             Random rnd = new Random();
-            int chance = rnd.nextInt(DISASTER_CHANCE);
+            int chance = rnd.nextInt(DISASTER_CHANCE + 1);
             if (DISASTER_LOTTERY_NUM == chance) {
                 System.out.println("DISASTER OCCURRED");
                 currentDisaster.occur(cellButtons);

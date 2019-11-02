@@ -1,13 +1,17 @@
 package Event;
 
+import Animal.Water;
 import impl.CellButton;
 
 import java.util.Random;
 
 public class Winter extends NaturalDisaster {
+    // Attributes
+
+    // Methods
     @Override
     public double getFatalityFactor() {
-        return 0.4;
+        return 1;
     }
 
     @Override
@@ -17,24 +21,18 @@ public class Winter extends NaturalDisaster {
 
     @Override
     public void occur(CellButton[][] cellButtons) {
-        Random rnd = new Random();
-        for (CellButton[] cellButtonRow : cellButtons) {
-            for (CellButton cellButton : cellButtonRow) {
-
-                //Chance that the natural disaster effects the cell.
-                int chance = rnd.nextInt(10);
-
-                if ((rangeFactor*10) >= chance) {
-
-                    //Chance that any animal in cell dies based on FatalityFactor
-                    chance = rnd.nextInt(10);
-
-                    if ((fatalityFactor * 10) >= chance) {
-                        cellButton.getCell().setAnimal(null);
-                        cellButton.display();
+        for(int x = 0; x < cellButtons.length; x++){
+            for(int y = 0; y < cellButtons[0].length; y++){
+                // Check if this cell should be affected
+                if(random.nextDouble() >= 1 - getRangeFactor()){
+                    if(cellButtons[x][y].getCell().getAnimal() != null && !(cellButtons[x][y].getCell().getAnimal() instanceof Water)){
+                        // Should we kill this animal
+                        if (random.nextDouble() >= 1 - getFatalityFactor()) {
+                            cellButtons[x][y].getCell().setAnimal(null);
+                            cellButtons[x][y].display();
+                        }
                     }
                 }
-
             }
         }
     }
