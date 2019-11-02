@@ -35,6 +35,5 @@ public abstract class Animal {
 	}
 
 
-
-
+    public abstract Color getColor();
 }
