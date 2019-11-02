@@ -1,3 +1,5 @@
+package impl;
+
 public class Pair {
 
 	private int x;
