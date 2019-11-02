@@ -69,11 +69,17 @@ public class Board {
     }
 
     public void startRepeatedUpdates() {
-        executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
+        if (isStopped) {
+            executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
+            isStopped = false;
+        }
     }
 
     public void stopRepeatedUpdates() {
-        executorService.shutdownNow();
+        if (!isStopped) {
+            executorService.shutdownNow();
+            isStopped = true;
+        }
     }
 
 
