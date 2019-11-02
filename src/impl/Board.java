@@ -23,6 +23,9 @@ public class Board {
 
     private final int DEFAULT_NUM_PREY = 15;
     private final int DEFAULT_NUM_PRED = 3;
+    private final int DEFUALT_WATER_AMOUNT = 30;
+
+    private Random random = new Random(1234);
 
     // Constructor
     public Board(int boardSize) {
@@ -36,18 +39,37 @@ public class Board {
 
         cellButtons = new CellButton[BOARD_SIZE][BOARD_SIZE];
 
-        //Randomly adds prey to the Board.
+        //Init cells to the board
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 cellButtons[i][j] = new CellButton(i, j, BOARD_SIZE);
             }
         }
 
+        initWater();
         linkCells();
         addInitialAnimals();
     }
 
     // Methods
+    public void initWater(){
+        // Pick A random Point on the map
+        int x = -1, y = -1;
+
+        do{
+            // Pick a new x and y
+            int newx = random.nextInt(BOARD_SIZE);
+            int newy = random.nextInt(BOARD_SIZE);
+
+            if(cellButtons[newx][newy].getCell().getAnimal() == null){
+                x = newx;
+                y = newy;
+            }
+        }while(x == -1);
+
+        cellButtons[x][y].getCell().setAnimal(new Water());
+    }
+
     public void addInitialAnimals() {
         for (Pair p : getRandomCoords(true)) {
             cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
@@ -147,7 +169,8 @@ public class Board {
             int x = random.nextInt(BOARD_SIZE);
             int y = random.nextInt(BOARD_SIZE);
 
-            randomCoords.add(new Pair(x, y));
+            if(cellButtons[x][y].getCell().getAnimal() == null)
+                randomCoords.add(new Pair(x, y));
         } while (randomCoords.size() < size);
 
         return randomCoords;
