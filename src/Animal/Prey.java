@@ -33,11 +33,15 @@ public class Prey extends Animal {
 	public void update(Cell currentCell) {
 		if(!isUpdated) {
 			//get neighbours
+			Pair nextMove = nextPosition(currentCell.getNeighbours());
 			// get random move
-			Pair nextMove;
-			// move to next position
-			return nextMove;
-			// set currentpos to null
+
+			if(nextMove == null) {
+				return currentCell;
+			} else {
+				return nextMove;
+			}
+
 		}
 	}
 
