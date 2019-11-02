@@ -24,12 +24,13 @@ public abstract class Animal {
 	public abstract double calculateMatingFactor();
 
 	public void update(Cell currentCell) {
-		if(isUpdated) {
+		if(!isUpdated) {
+			cellColour;
 
 		}
 	}
 
-	public Pair nextPosition() {
+	public Pair nextPosition(List<Cell> neigbours) {
 		// TODO
 		return null;
 	}
