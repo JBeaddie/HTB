@@ -24,6 +24,8 @@ public class Board {
             }
         }
 
+        linkCells();
+
     }
 
     // Methods
