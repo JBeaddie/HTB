@@ -27,10 +27,8 @@ public class Board {
             }
         }
 
+        linkCells();
         cellButtons[0][0].getCell().setAnimal(new Prey());
-        update();
-        update();
-        update();
     }
 
     // Methods
@@ -70,6 +68,8 @@ public class Board {
 
     public void startRepeatedUpdates() {
         if (isStopped) {
+            System.out.println("banana");
+            executorService = Executors.newSingleThreadScheduledExecutor();
             executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
             isStopped = false;
         }
