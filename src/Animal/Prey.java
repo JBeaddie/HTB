@@ -21,7 +21,7 @@ public class Prey extends Animal {
 	public Prey(boolean isUpdated){
 		// Hunger levels
 		this.hungerThreshold = 0.1;
-		this.hungerFactor = 0.011;
+		this.hungerFactor = 0.01;
 		this.hungerLevel = 0;
 
 		// Mating levels
@@ -36,18 +36,6 @@ public class Prey extends Animal {
 	}
 
 	// Methods
-	@Override
-	public double calculateHungerFactor() {
-		double hunger = Math.exp(-1 * hungerFactor * matingLevel);
-		return hunger;
-	}
-
-	@Override
-	public double calculateMatingFactor() {
-		double mating =1 - Math.exp(-1 * matingFactor * matingLevel);
-		return mating;
-	}
-
 	@Override
 	public Action update(Cell currentCell) {
 		System.out.println(this.calculateMatingFactor());

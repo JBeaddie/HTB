@@ -10,47 +10,53 @@ import java.util.List;
 
 
 public abstract class Animal {
-	// Attributes
-	protected double hungerFactor;
-	protected int hungerLevel;
-	protected double hungerThreshold;
-	protected double matingFactor;
-	protected int matingLevel;
-	protected double matingThreshold;
-	protected Pair currentPosition;
-	protected Color cellColour;
-	private boolean isUpdated;
+    // Attributes
+    protected double hungerFactor;
+    protected int hungerLevel;
+    protected double hungerThreshold;
+    protected double matingFactor;
+    protected int matingLevel;
+    protected double matingThreshold;
+    protected Pair currentPosition;
+    protected Color cellColour;
+    private boolean isUpdated;
 
-	// Method
-	public abstract double calculateHungerFactor();
+    // Method
+    public double calculateHungerFactor() {
+        double hunger = Math.exp(-1 * hungerFactor * matingLevel);
+        return hunger;
+    }
 
-	public abstract double calculateMatingFactor();
+    public double calculateMatingFactor() {
+        double mating = 1 - Math.exp(-1 * matingFactor * matingLevel);
+        return mating;
+    }
 
-	public abstract Action update(Cell currentCell);
+    public abstract Action update(Cell currentCell);
 
-	public abstract Pair nextPosition(List<Cell> neighbours);
+    public abstract Pair nextPosition(List<Cell> neighbours);
 
     public abstract Color getColor();
 
-	public boolean isUpdated() {
-		return isUpdated;
-	}
+    public boolean isUpdated() {
+        return isUpdated;
+    }
 
-	public void setUpdated(boolean updated) {
-		isUpdated = updated;
-	}
+    public void setUpdated(boolean updated) {
+        isUpdated = updated;
+    }
 
 
-	public void updateLevels(){
-		matingLevel++;
-		hungerLevel++;
-	}
+    public void updateLevels() {
+        matingLevel++;
+        hungerLevel++;
+    }
 
-	public int getMatingLevel() {
-		return matingLevel;
-	}
+    public int getMatingLevel() {
+        return matingLevel;
+    }
 
-	public void setMatingLevel(int matingLevel) {
-		this.matingLevel = matingLevel;
-	}
+    public void setMatingLevel(int matingLevel) {
+        this.matingLevel = matingLevel;
+    }
 }
