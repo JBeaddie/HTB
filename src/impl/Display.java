@@ -18,14 +18,14 @@ public class Display extends JFrame implements ActionListener {
 
     private JPanel panel = new JPanelWithBackground("terrain.jpg");
     private JPanel greyPanel = new JPanel();
-    private JLayeredPane layeredPane = new JLayeredPane();
+    private JLayeredPane layeredPane = new JLayeredPaneWithBackground("stars-3.jpg");
 
     public Display(int boardSize) {
 
-        setPreferredSize(new Dimension(700, 700));
+        setPreferredSize(new Dimension(1920, 1080));
         setLayout(new BorderLayout());
         add(layeredPane, BorderLayout.CENTER);
-        layeredPane.setBounds(0, 0, 700, 700);
+        layeredPane.setBounds(0, 0, 1920, 1080);
         setTitle("Species survival of the fittest");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
