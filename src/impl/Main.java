@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int boardSize = 10;
+        int boardSize = 20;
 
         Display display = new Display(boardSize);
 
