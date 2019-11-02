@@ -26,6 +26,10 @@ public class Board {
 
         linkCells();
 
+        cellButtons[0][0].getCell().setAnimal(new Prey());
+        update();
+        update();
+        update();
     }
 
     // Methods

@@ -6,11 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CellButton implements ActionListener {
-
+    // Attributes
     private Cell cell;
     private JButton button = new JButton();
     private final Color DEFAULT_COLOUR = Color.PINK;
 
+    // Constructor
     public CellButton(int xcoord, int ycoord, int boardSize) {
 
         cell = new Cell(xcoord, ycoord);
@@ -22,6 +23,17 @@ public class CellButton implements ActionListener {
         button.addActionListener(this);
 
 
+    }
+
+    // Methods
+    public void display(){
+        // Set new colour of button
+        button.setBackground(cell.getColor());
+        button.setForeground(cell.getColor());
+
+        // Reset animal update
+        if(cell.getAnimal() != null)
+            cell.getAnimal().setUpdated(true);
     }
 
     public JButton getButton() {
@@ -38,6 +50,4 @@ public class CellButton implements ActionListener {
 
         }
     }
-
-    public void update
 }
