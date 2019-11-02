@@ -26,6 +26,17 @@ public class Board {
 
     }
 
+    // Methods
+    public void update(){
+        // Loop through each cell in the board
+        for(int x = 0; x < BOARD_SIZE; x++){
+            for(int y = 0; y < BOARD_SIZE; y++){
+                // Get each animal in the cell
+
+            }
+        }
+    }
+
     public void startRepeatedUpdates() {
         executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
     }
@@ -39,15 +50,4 @@ public class Board {
     public CellButton[][] getCellButtons() {
         return cellButtons;
     }
-
-    public void update(){
-        // Loop through each cell in the board
-        for(int x = 0; x < BOARD_SIZE; x++){
-            for(int y = 0; y < BOARD_SIZE; y++){
-
-            }
-        }
-    }
-
-
 }
