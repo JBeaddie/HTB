@@ -34,7 +34,7 @@ public class Board {
     //TODO randomly pick which disaster is the next one.
     private NaturalDisaster currentDisaster = new Winter();
     private final int DISASTER_LOTTERY_NUM = 1;
-    boolean naturalDisasters = true;
+    boolean naturalDisasters = false;
     private final int DISASTER_CHANCE = 10;
 
     // Constructor
