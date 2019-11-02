@@ -23,7 +23,7 @@ public class Board {
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                cellButtons[i][j] = new CellButton(j, i, BOARD_SIZE);
+                cellButtons[i][j] = new CellButton(i, j, BOARD_SIZE);
             }
         }
 
@@ -49,7 +49,7 @@ public class Board {
                 // Check if pair is different from current
                 if (pair.getX() != x && pair.getY() != y) {
                     // Move the animal
-                    cellButtons[pair.getX()][pair.getX()].getCell().setAnimal(animal);
+                    cellButtons[pair.getX()][pair.getY()].getCell().setAnimal(animal);
                     cellButtons[x][y].getCell().setAnimal(null);
                 }
 
@@ -71,7 +71,7 @@ public class Board {
         if (isStopped) {
             System.out.println("banana");
             executorService = Executors.newSingleThreadScheduledExecutor();
-            executorService.scheduleAtFixedRate(this::update, 0, 1, TimeUnit.MILLISECONDS);
+            executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
             isStopped = false;
         }
     }
@@ -85,7 +85,7 @@ public class Board {
 
 
     public Cell getCell(int x, int y) {
-        return cellButtons[y][x].getCell();
+        return cellButtons[x][y].getCell();
     }
 
     public void linkCells() {
