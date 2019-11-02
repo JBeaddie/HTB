@@ -6,7 +6,7 @@ public class Main {
     public static double PREY_MATING_FACTOR;
     public static double PREY_HUNGER_FACTOR;
     public static double WATER_DENSITY_FACTOR = 0.3;
-    public static double MIN_WATER = 30;
+    public static double MIN_WATER = 120;
 
     public static void resetFactors(){
         PRED_MATING_FACTOR = 0.2;
