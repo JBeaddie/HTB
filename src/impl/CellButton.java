@@ -9,7 +9,7 @@ public class CellButton implements ActionListener {
     // Attributes
     private Cell cell;
     private JButton button = new JButton();
-    private final Color DEFAULT_COLOUR = Color.PINK;
+    private final Color DEFAULT_COLOUR = Color.DARK_GRAY;
 
     // Constructor
     public CellButton(int xcoord, int ycoord, int boardSize) {
