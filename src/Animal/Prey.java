@@ -6,6 +6,7 @@ import Actions.Mate;
 import Actions.Move;
 import impl.Cell;
 import impl.CellButton;
+import impl.Main;
 import impl.Pair;
 
 import java.awt.*;
@@ -20,12 +21,12 @@ public class Prey extends Animal {
 	// Constructor
 	public Prey(boolean isUpdated){
 		// Hunger levels
-		this.hungerThreshold = 0.1;
+		this.hungerThreshold = Main.PREY_HUNGER_THRESHOLD;
 		this.hungerFactor = 0.00001;
 		this.hungerLevel = 0;
 
 		// Mating levels
-		this.matingThreshold = 0.7;
+		this.matingThreshold = Main.PREY_MATING_THRESHOLD;
 		this.matingLevel = 0;
 		this.matingFactor = 0.01;
 		setUpdated(isUpdated);

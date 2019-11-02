@@ -5,6 +5,7 @@ import Actions.Die;
 import Actions.Mate;
 import Actions.Move;
 import impl.Cell;
+import impl.Main;
 import impl.Pair;
 
 import java.awt.*;
@@ -14,17 +15,17 @@ import java.util.List;
 public class Predator extends Animal {
     // Attributes
     private final Color COLOR = Color.RED;
-    private double deathThreshold = 0.01;
+    private double deathThreshold = 0.1;
 
     // Constructor
     public Predator(boolean isUpdated) {
         // Hunger levels
-        this.hungerThreshold = 0.6;
+        this.hungerThreshold = Main.PRED_HUNGER_THRESHOLD;
         this.hungerFactor = 0.01;
         this.hungerLevel = 0;
 
         // Mating levels
-        this.matingThreshold = 0.7;
+        this.matingThreshold = Main.PRED_MATING_THRESHOLD;
         this.matingLevel = 0;
         this.matingFactor = 0.05;
         setUpdated(isUpdated);
@@ -76,6 +77,7 @@ public class Predator extends Animal {
 
                 if (canMate && emptyCell != null) {
                     emptyCell.setAnimal(new Predator(true));
+                    emptyCell.getAnimal().hungerLevel = hungerLevel - 1;
                     mateCell.getAnimal().setUpdated(true);
                     mateCell.getAnimal().updateLevels();
                     mateCell.getAnimal().setMatingLevel(0);
