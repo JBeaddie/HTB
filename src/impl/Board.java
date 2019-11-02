@@ -22,6 +22,7 @@ public class Board {
     private boolean isStopped = true;
 
     private final int DEFAULT_NUM_PREY = 10;
+    private final int DEFAULT_NUM_PRED = 2;
 
     // Constructor
     public Board(int boardSize) {
@@ -43,18 +44,17 @@ public class Board {
         }
 
         linkCells();
-
-        addInitialPrey();
-
-
-
-
+        addInitialAnimals();
     }
 
     // Methods
-    public void addInitialPrey() {
-        for (Pair p : getRandomCoords()) {
+    public void addInitialAnimals() {
+        for (Pair p : getRandomCoords(true)) {
             cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
+        }
+
+        for (Pair p : getRandomCoords(false)){
+            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Predator());
         }
     }
 
@@ -138,7 +138,8 @@ public class Board {
         return cellButtons;
     }
 
-    public Set<Pair> getRandomCoords() {
+    public Set<Pair> getRandomCoords(boolean forPrey) {
+        int size = forPrey ? DEFAULT_NUM_PREY : DEFAULT_NUM_PRED;
 
         Set randomCoords = new HashSet();
         Random random = new Random();
@@ -147,7 +148,7 @@ public class Board {
             int y = random.nextInt(BOARD_SIZE);
 
             randomCoords.add(new Pair(x, y));
-        } while (randomCoords.size() < DEFAULT_NUM_PREY);
+        } while (randomCoords.size() < size);
 
         return randomCoords;
     }
@@ -159,7 +160,7 @@ public class Board {
                 cellButton.display();
             }
         }
-        addInitialPrey();
+        addInitialAnimals();
     }
 
 
