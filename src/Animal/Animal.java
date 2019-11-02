@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public abstract class Animal {
-
+	// Attributes
 	protected double hungerFactor;
 	protected int hungerLevel;
 	protected double hungerThreshold;
@@ -18,11 +18,9 @@ public abstract class Animal {
 	protected double matingThreshold;
 	protected Pair currentPosition;
 	protected Color cellColour;
-	protected boolean isUpdated;
+	private boolean isUpdated;
 
-	public Animal() {}
-
-	// Method s
+	// Method
 	public abstract double calculateHungerFactor();
 
 	public abstract double calculateMatingFactor();
@@ -32,4 +30,12 @@ public abstract class Animal {
 	public abstract Pair nextPosition(List<Cell> neighbours);
 
     public abstract Color getColor();
+
+	public boolean isUpdated() {
+		return isUpdated;
+	}
+
+	public void setUpdated(boolean updated) {
+		isUpdated = updated;
+	}
 }

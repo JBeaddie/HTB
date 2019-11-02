@@ -1,5 +1,8 @@
 package impl;
 
+import Animal.Animal;
+import Animal.*;
+
 import javax.swing.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,6 +27,10 @@ public class Board {
             }
         }
 
+        cellButtons[0][0].getCell().setAnimal(new Prey());
+        update();
+        update();
+        update();
     }
 
     // Methods
@@ -32,7 +39,31 @@ public class Board {
         for(int x = 0; x < BOARD_SIZE; x++){
             for(int y = 0; y < BOARD_SIZE; y++){
                 // Get each animal in the cell
+                Animal animal = cellButtons[x][y].getCell().getAnimal();
 
+                // Check the animal is non null
+                if(animal == null)
+                    continue;
+
+                Pair pair = animal.update(cellButtons[x][y].getCell());
+
+                // Check if pair is different from current
+                if(pair.getX() != x && pair.getY() != y){
+                    // Move the animal
+                    cellButtons[pair.getX()][pair.getX()].getCell().setAnimal(animal);
+                    cellButtons[x][y].getCell().setAnimal(null);
+                }
+
+                // Animal has been updated
+                animal.setUpdated(true);
+            }
+        }
+
+        // Loop through each cell in the board
+        for(int x = 0; x < BOARD_SIZE; x++){
+            for(int y = 0; y < BOARD_SIZE; y++){
+                // Display button
+                cellButtons[x][y].display();
             }
         }
     }
