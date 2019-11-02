@@ -11,6 +11,7 @@ public class Display extends JFrame implements ActionListener {
 
     private JButton startButton = new JButton("Start");
     private JButton stopButton = new JButton("Stop");
+    private JButton resetButton = new JButton("Reset");
     private JButton preyButton = new JButton("Prey");
     private final Color PANEL_BACKGROUND_COLOUR = Color.GRAY;
     private final Color DEFAULT_COLOUR = Color.DARK_GRAY;
@@ -42,8 +43,9 @@ public class Display extends JFrame implements ActionListener {
             }
         }
 
-        addButton(startButton, 445, 100);
-        addButton(stopButton, 445, 200);
+        addButton(startButton, 445, 50);
+        addButton(stopButton, 445, 150);
+        addButton(resetButton, 445, 250);
 
 
         repaint();
@@ -67,6 +69,9 @@ public class Display extends JFrame implements ActionListener {
             board.startRepeatedUpdates();
         } else if (e.getSource() == stopButton) {
             board.stopRepeatedUpdates();
+        } else if (e.getSource() == resetButton) {
+            board.reset();
+//            repaint();
         }
     }
 }

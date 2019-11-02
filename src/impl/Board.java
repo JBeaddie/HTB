@@ -46,16 +46,20 @@ public class Board {
         cellButtons[0][1].getCell().setAnimal(new Predator());
         linkCells();
 
+        addInitialPrey();
 
-        for (Pair p : getRandomCoords()) {
-            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
-        }
 
 
 
     }
 
     // Methods
+    public void addInitialPrey() {
+        for (Pair p : getRandomCoords()) {
+            cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
+        }
+    }
+
     public void update() {
         // Loop through each cell in the board
         for (int x = 0; x < BOARD_SIZE; x++) {
@@ -148,6 +152,16 @@ public class Board {
         } while (randomCoords.size() < DEFAULT_NUM_PREY);
 
         return randomCoords;
+    }
+
+    public void reset() {
+        for (CellButton[] cellButtonRow: cellButtons) {
+            for (CellButton cellButton: cellButtonRow) {
+                cellButton.getCell().setAnimal(null);
+                cellButton.display();
+            }
+        }
+        addInitialPrey();
     }
 
 
