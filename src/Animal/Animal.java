@@ -4,6 +4,8 @@ import impl.Cell;
 import impl.Pair;
 
 import java.awt.*;
+import java.util.LinkedList;
+
 
 public abstract class Animal {
 
@@ -13,9 +15,9 @@ public abstract class Animal {
 	protected double matingFactor;
 	protected int matingLevel;
 	protected double matingThreshold;
-	private Pair currentPosition;
-	private Color cellColour;
-	private boolean isUpdated;
+	protected Pair currentPosition;
+	protected Color cellColour;
+	protected boolean isUpdated;
 
 	public Animal() {}
 
@@ -24,14 +26,9 @@ public abstract class Animal {
 
 	public abstract double calculateMatingFactor();
 
-	public void update(Cell currentCell) {
-		if(!isUpdated) {
-			cellColour;
+	public abstract void update(Cell currentCell);
 
-		}
-	}
-
-	public abstract Pair nextPosition();
+	public abstract Pair nextPosition(LinkedList<Cell> neighbours);
 
     public abstract Color getColor();
 }
