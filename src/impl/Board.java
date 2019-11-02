@@ -18,21 +18,21 @@ import Event.Winter;
 public class Board {
     // Attributes
     private int BOARD_SIZE;
+    private int amountOfWater = 0;
     private CellButton[][] cellButtons;
 
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isStopped = true;
 
-    private final int DEFAULT_NUM_PREY = 15;
-    private final int DEFAULT_NUM_PRED = 3;
-    private final int DEFUALT_WATER_AMOUNT = 30;
+    public static int DEFAULT_NUM_PREY = 15;
+    public static int DEFAULT_NUM_PRED = 3;
 
-    private Random random = new Random(1234);
+    private Random random = new Random();
 
     //TODO randomly pick which disaster is the next one.
     private NaturalDisaster currentDisaster = new Winter();
     private final int DISASTER_LOTTERY_NUM = 1;
-    boolean naturalDisasters = true;
+    boolean naturalDisasters = false;
     private final int DISASTER_CHANCE = 10;
 
     // Constructor
@@ -54,13 +54,14 @@ public class Board {
             }
         }
 
-        initWater();
         linkCells();
+        while (amountOfWater < Main.MIN_WATER)
+            initWater();
         addInitialAnimals();
     }
 
     // Methods
-    public void initWater(){
+    private void initWater(){
         // Pick A random Point on the map
         int x = -1, y = -1;
 
@@ -75,10 +76,33 @@ public class Board {
             }
         }while(x == -1);
 
+        // Add water to this position
         cellButtons[x][y].getCell().setAnimal(new Water());
+        amountOfWater++;
+
+        // For each neighbor of this add water
+        for(Cell cell : cellButtons[x][y].getCell().getNeighbours()){
+            addWater(cell.getXcoord(), cell.getYcoord(), 1);
+        }
     }
 
-    public void addInitialAnimals() {
+    private void addWater(int x, int y, int layer){
+        // See if water the space is empty
+        if(cellButtons[x][y].getCell().getAnimal() == null && random.nextDouble() >= (1d - (Main.WATER_DENSITY_FACTOR / layer))){
+            // Add water
+            cellButtons[x][y].getCell().setAnimal(new Water());
+            amountOfWater++;
+
+            // Now go lower for each neighbor of this cell
+            for(Cell cell : cellButtons[x][y].getCell().getNeighbours()){
+                addWater(cell.getXcoord(), cell.getYcoord(), layer++);
+            }
+        }
+    }
+
+
+
+    private void addInitialAnimals() {
         for (Pair p : getRandomCoords(true)) {
             cellButtons[p.getX()][p.getY()].getCell().setAnimal(new Prey());
         }
@@ -88,11 +112,11 @@ public class Board {
         }
     }
 
-    public void update() {
+    private void update() {
 
         if (naturalDisasters) {
             Random rnd = new Random();
-            int chance = rnd.nextInt(DISASTER_CHANCE);
+            int chance = rnd.nextInt(DISASTER_CHANCE + 1);
             if (DISASTER_LOTTERY_NUM == chance) {
                 System.out.println("DISASTER OCCURRED");
                 currentDisaster.occur(cellButtons);
@@ -208,6 +232,10 @@ public class Board {
                 cellButton.getCell().setAnimal(null);
                 cellButton.display();
             }
+        }
+        amountOfWater = 0;
+        while (amountOfWater < Main.MIN_WATER){
+            initWater();
         }
         addInitialAnimals();
     }
