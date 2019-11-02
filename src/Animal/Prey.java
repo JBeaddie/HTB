@@ -1,5 +1,8 @@
 package Animal;
 
+import Actions.Action;
+import Actions.Mate;
+import Actions.Move;
 import impl.Cell;
 import impl.CellButton;
 import impl.Pair;
@@ -14,39 +17,81 @@ public class Prey extends Animal {
 	private final Color COLOR = Color.GREEN;
 
 	// Constructor
+	public Prey(boolean isUpdated){
+		this.matingThreshold = 0.7;
+		this.matingLevel = 0;
+		this.matingFactor = 0.01;
+		setUpdated(isUpdated);
+	}
+
+	public Prey(){
+		this(false);
+	}
 
 	// Methods
 	@Override
 	public double calculateHungerFactor() {
 		double hunger = Math.exp(-1 * hungerFactor * matingLevel);
-		hungerLevel++;
 		return hunger;
 	}
 
 	@Override
 	public double calculateMatingFactor() {
 		double mating =1 - Math.exp(-1 * matingFactor * matingLevel);
-		matingLevel++;
 		return mating;
 	}
 
 	@Override
-	public Pair update(Cell currentCell) {
+	public Action update(Cell currentCell) {
+		System.out.println(this.calculateMatingFactor());
+
 		if(!isUpdated()) {
-			//get neighbours
-			Pair nextMove = nextPosition(currentCell.getNeighbours());
-			// get random move
+			// Check if mating level is above 0.7
+			if (calculateMatingFactor() >= matingThreshold) {
+				boolean canMate = false;
+				Cell emptyCell = null;
+				Cell mateCell = null;
 
-			if(nextMove == null) {
-				return new Pair(currentCell.getXcoord(), currentCell.getYcoord());
+				// Now check if there is any other prey
+				for (Cell cell : currentCell.getNeighbours()) {
+					if (cell.getAnimal() != null && cell.getAnimal() instanceof Prey && cell.getAnimal().calculateMatingFactor() > matingThreshold) {
+						canMate = true;
+						mateCell = cell;
+						if (emptyCell != null)
+							break;
+					} else if (emptyCell == null && cell.getAnimal() == null) {
+						emptyCell = cell;
+					}
+				}
+
+				if (canMate && emptyCell != null) {
+					emptyCell.setAnimal(new Prey(true));
+					mateCell.getAnimal().setUpdated(true);
+					mateCell.getAnimal().updateLevels();
+					mateCell.getAnimal().setMatingLevel(0);
+					matingLevel = 0;
+					return new Mate();
+				} else {
+					return getMove(currentCell);
+				}
 			} else {
-				return nextMove;
+				return getMove(currentCell);
 			}
-
 		}
-		return new Pair(currentCell.getXcoord(), currentCell.getYcoord());
+
+		return null;
 	}
 
+	private Move getMove(Cell currentCell){
+		// Get neighbors
+		Pair nextMove = nextPosition(currentCell.getNeighbours());
+
+		if(nextMove == null){
+			nextMove = new Pair(currentCell.getXcoord(), currentCell.getYcoord());
+		}
+
+		return new Move(nextMove);
+	}
 
 	public Pair nextPosition(List<Cell> neighbours) {
 		// empty list for adjacent cells
@@ -64,7 +109,6 @@ public class Prey extends Animal {
 			// picks a random move and returns it
 			Random rand = new Random();
 			int randomCellIndex = rand.nextInt(emptyCells.size());
-			System.out.println(randomCellIndex);
 			Cell moveTo = emptyCells.get(randomCellIndex);
 			return new Pair(moveTo.getXcoord(),moveTo.getYcoord());
 		}

@@ -1,5 +1,6 @@
 package impl;
 
+import Actions.Move;
 import Animal.Animal;
 import Animal.*;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import Actions.Action;
 
 public class Board {
     // Attributes
@@ -44,17 +46,22 @@ public class Board {
                 if (animal == null)
                     continue;
 
-                Pair pair = animal.update(cellButtons[x][y].getCell());
+                Action action = animal.update(cellButtons[x][y].getCell());
 
-                // Check if pair is different from current
-                if (pair.getX() != x && pair.getY() != y) {
-                    // Move the animal
-                    cellButtons[pair.getX()][pair.getY()].getCell().setAnimal(animal);
-                    cellButtons[x][y].getCell().setAnimal(null);
+                // Check if current action is a move
+                if(action instanceof Move) {
+                    Pair pair = ((Move) action).getPair();
+
+                    if (pair.getX() != x && pair.getY() != y) {
+                        // Move the animal
+                        cellButtons[pair.getX()][pair.getY()].getCell().setAnimal(animal);
+                        cellButtons[x][y].getCell().setAnimal(null);
+                    }
                 }
 
                 // Animal has been updated
                 animal.setUpdated(true);
+                animal.updateLevels();
             }
         }
 
@@ -69,9 +76,8 @@ public class Board {
 
     public void startRepeatedUpdates() {
         if (isStopped) {
-            System.out.println("banana");
             executorService = Executors.newSingleThreadScheduledExecutor();
-            executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
+            executorService.scheduleAtFixedRate(this::update, 0, 1, TimeUnit.MILLISECONDS);
             isStopped = false;
         }
     }
