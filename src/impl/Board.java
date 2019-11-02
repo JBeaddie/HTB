@@ -3,6 +3,7 @@ package impl;
 import javax.swing.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Board {
 
@@ -24,9 +25,20 @@ public class Board {
 
     }
 
+    public void startRepeatedUpdates() {
+        executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
+    }
+
+    public void stopRepeatedUpdates() {
+        executorService.shutdownNow();
+    }
+
+    public void update() {
+
+    }
+
     public CellButton[][] getCellButtons() {
         return cellButtons;
     }
-
 
 }
