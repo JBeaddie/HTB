@@ -31,14 +31,14 @@ public class Cell{
     }
 
     public void addNeighbours(Board board) {
-        addNeighbour(board.getCell(x - 1, y - 1));
-        addNeighbour(board.getCell(x, y - 1));
-        addNeighbour(board.getCell(x + 1, y - 1));
-        addNeighbour(board.getCell(x - 1, y));
-        addNeighbour(board.getCell(x + 1, y));
-        addNeighbour(board.getCell(x - 1, y + 1));
-        addNeighbour(board.getCell(x, y + 1));
-        addNeighbour(board.getCell(x + 1, y + 1));
+        addNeighbour(board.getCell(xcoord - 1, ycoord - 1));
+        addNeighbour(board.getCell(xcoord, ycoord - 1));
+        addNeighbour(board.getCell(xcoord + 1, ycoord - 1));
+        addNeighbour(board.getCell(xcoord - 1, ycoord));
+        addNeighbour(board.getCell(xcoord + 1, ycoord));
+        addNeighbour(board.getCell(xcoord - 1, ycoord + 1));
+        addNeighbour(board.getCell(xcoord, ycoord + 1));
+        addNeighbour(board.getCell(xcoord + 1, ycoord + 1));
 
     }
 
