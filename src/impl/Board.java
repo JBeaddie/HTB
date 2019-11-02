@@ -58,7 +58,7 @@ public class Board {
     public void linkCells() {
         for (CellButton[] cellButtonRow: cellButtons) {
             for (CellButton cellButton: cellButtonRow) {
-                cellButton.getCell().addNeighbours();
+                cellButton.getCell().addNeighbours(this);
             }
         }
     }
