@@ -39,5 +39,5 @@ public class CellButton implements ActionListener {
         }
     }
 
-    public void update
+
 }
