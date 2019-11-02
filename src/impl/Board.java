@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import Actions.Action;
+import Event.NaturalDisaster;
+import Event.Winter;
 
 public class Board {
     // Attributes
@@ -28,6 +30,12 @@ public class Board {
     private final int DEFUALT_WATER_AMOUNT = 80;
 
     private Random random = new Random(1234);
+
+    //TODO randomly pick which disaster is the next one.
+    private NaturalDisaster currentDisaster = new Winter();
+    private final int DISASTER_LOTTERY_NUM = 1;
+    boolean naturalDisasters = true;
+    private final int DISASTER_CHANCE = 10;
 
     // Constructor
     public Board(int boardSize) {
@@ -107,6 +115,18 @@ public class Board {
     }
 
     private void update() {
+
+        if (naturalDisasters) {
+            Random rnd = new Random();
+            int chance = rnd.nextInt(DISASTER_CHANCE);
+            if (DISASTER_LOTTERY_NUM == chance) {
+                System.out.println("DISASTER OCCURRED");
+                currentDisaster.occur(cellButtons);
+            }
+        }
+
+
+
         // Loop through each cell in the board
         for (int x = 0; x < BOARD_SIZE; x++) {
             for (int y = 0; y < BOARD_SIZE; y++) {
@@ -153,7 +173,7 @@ public class Board {
     public void startRepeatedUpdates() {
         if (isStopped) {
             executorService = Executors.newSingleThreadScheduledExecutor();
-            executorService.scheduleAtFixedRate(this::update, 0, 500, TimeUnit.MILLISECONDS);
+            executorService.scheduleAtFixedRate(this::update, 0, 100, TimeUnit.MILLISECONDS);
             isStopped = false;
         }
     }
@@ -200,6 +220,12 @@ public class Board {
         } while (randomCoords.size() < size);
 
         return randomCoords;
+    }
+
+    public void naturalDisaster() {
+        if (currentDisaster != null) {
+            currentDisaster.occur(cellButtons);
+        }
     }
 
     public void reset() {
